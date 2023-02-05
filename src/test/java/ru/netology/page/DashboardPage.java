@@ -8,8 +8,6 @@ import lombok.val;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
-import ru.netology.data.DataHelper;
-
 public class DashboardPage {
     private ElementsCollection cards = $$(".list__item div");
     private final String balanceStart = "баланс: ";
@@ -43,17 +41,8 @@ public class DashboardPage {
         return new TransferPage();
     }
 
-    public DashboardPage DashboardPage() {
+    public DashboardPage dashboardPage() {
         refreshButton.click();
-        return new DashboardPage();
-    }
-
-    public DashboardPage MainPage() {
-        var loginPage = new LoginPage();
-        var authInfo = DataHelper.getAuthInfo();
-        var verificationPage = loginPage.validLogin(authInfo);
-        var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
-        verificationPage.validVerify(verificationCode);
         return new DashboardPage();
     }
 }

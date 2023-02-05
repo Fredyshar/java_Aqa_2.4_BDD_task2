@@ -20,18 +20,10 @@ public class TransferPage {
         buttonCancel.shouldBe(Condition.visible);
     }
 
-    public DashboardPage transfer0001(int amount, String numberCard) {
+    public DashboardPage transfer(int amount, String numberCard) {
         transferAmount.setValue(String.valueOf(amount));
         fromTransfer.setValue(numberCard);
         buttonTransfer.click();
         return new DashboardPage();
     }
-
-    public DashboardPage transfer0002(int amount) {
-        transferAmount.setValue(String.valueOf(amount));
-        fromTransfer.setValue("5559000000000001");
-        buttonTransfer.click();
-        return new DashboardPage();
-    }
-
 }
