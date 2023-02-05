@@ -9,9 +9,14 @@ import static com.codeborne.selenide.Selenide.$;
 public class VerificationPage {
     private SelenideElement codeField = $("[data-test-id=code] input");
     private SelenideElement verifyButton = $("[data-test-id=action-verify]");
+    private SelenideElement errorMassage = $("[data-test-id='error-notification']");
 
     public VerificationPage() {
         codeField.shouldBe(visible);
+    }
+
+    public SelenideElement getErrorMassage() {
+        return errorMassage;
     }
 
     public DashboardPage validVerify(DataHelper.VerificationCode verificationCode) {

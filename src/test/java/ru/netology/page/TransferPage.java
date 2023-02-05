@@ -12,12 +12,18 @@ public class TransferPage {
     private SelenideElement buttonTransfer = $("[data-test-id='action-transfer']"); // кнопка перевод
     private SelenideElement buttonCancel = $("[data-test-id='action-cancel']"); // кнопка отмены
 
+    private SelenideElement errorMassage = $("[data-test-id='error-notification']");
+
     public TransferPage() {
         transferAmount.shouldBe(Condition.visible);
         fromTransfer.shouldBe(Condition.visible);
         toTransfer.shouldBe(Condition.visible);
         buttonTransfer.shouldBe(Condition.visible);
         buttonCancel.shouldBe(Condition.visible);
+    }
+
+    public SelenideElement getErrorMassage() {
+        return errorMassage;
     }
 
     public DashboardPage transfer(int amount, String numberCard) {
