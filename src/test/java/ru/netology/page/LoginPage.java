@@ -16,33 +16,24 @@ public class LoginPage {
     private SelenideElement passwordField = $("[data-test-id=password] input");
     private SelenideElement loginButton = $("[data-test-id=action-login]");
     private SelenideElement errorMassage = $("[data-test-id='error-notification']");
-    private static Faker faker;
 
-    public SelenideElement getErrorMassage() {
-        return errorMassage;
+    public void getErrorMassage(String textError) {
+        errorMassage
+                .shouldHave(Condition.text(textError))
+                .shouldBe(visible);
     }
 
-    public VerificationPage validLogin(DataHelper.AuthInfo info) {
-        loginField.setValue(info.getLogin());
-        passwordField.setValue(info.getPassword());
+    public VerificationPage validLogin(String login, String password) {
+        loginField.setValue(login);
+        passwordField.setValue(password);
         loginButton.click();
         return new VerificationPage();
     }
 
-    public LoginPage invalidLogin(DataHelper.AuthInfo info) {
-        faker = new Faker(new Locale("en"));
-        loginField.setValue(faker.name().username());
+    public void invalidLoginOrPassword(DataHelper.AuthInfo info) {
+        loginField.setValue(info.getLogin());
         passwordField.setValue(info.getPassword());
         loginButton.click();
-        return new LoginPage();
-    }
-
-    public LoginPage invalidpassword(DataHelper.AuthInfo info) {
-        faker = new Faker(new Locale("en"));
-        loginField.setValue(info.getLogin());
-        passwordField.setValue(faker.internet().password());
-        loginButton.click();
-        return new LoginPage();
     }
 
 }

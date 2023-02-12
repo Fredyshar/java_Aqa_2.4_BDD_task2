@@ -17,6 +17,7 @@ public class DashboardPage {
     private SelenideElement buttonReplenishCard0002 = $$("[data-test-id='action-deposit']").last();
 
     public DashboardPage() {
+        $("h1").shouldBe(visible);
     }
 
     public int getCardBalance(String id) {

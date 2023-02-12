@@ -3,6 +3,7 @@ package ru.netology.page;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
 public class TransferPage {
@@ -22,8 +23,10 @@ public class TransferPage {
         buttonCancel.shouldBe(Condition.visible);
     }
 
-    public SelenideElement getErrorMassage() {
-        return errorMassage;
+    public void getErrorMassage(String textError) {
+        errorMassage
+                .shouldHave(Condition.text("Ошибка!"))
+                .shouldBe(visible);
     }
 
     public DashboardPage transfer(int amount, String numberCard) {

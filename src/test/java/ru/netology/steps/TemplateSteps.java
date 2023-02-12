@@ -1,5 +1,7 @@
 package ru.netology.steps;
 
+import com.codeborne.selenide.Selenide;
+import io.cucumber.java.mk_cyrl.И;
 import io.cucumber.java.ru.*;
 import org.junit.jupiter.api.Assertions;
 import ru.netology.data.DataHelper;
@@ -14,30 +16,32 @@ public class TemplateSteps {
     private static DashboardPage dashboardPage;
     private static VerificationPage verificationPage;
 
-
-    public DashboardPage mainPage() {
-        var loginPage = new LoginPage();
-        var authInfo = DataHelper.getAuthInfo();
-        var verificationPage = loginPage.validLogin(authInfo);
-        var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
-        verificationPage.validVerify(verificationCode);
-        return new DashboardPage();
+    @Пусть("открыта страница с формой авторизации {string},")
+    public void openAuthPage(String url) {
+        loginPage = Selenide.open(url, LoginPage.class);
     }
 
-    @Пусть("пользователь залогинен с именем {string} и паролем {string},")
+    @Когда("пользователь залогинен с именем {string} и паролем {string},")
     public void openMainPage(String login, String password) {
-        open("http://localhost:9999");
-        var MainPage = mainPage();
+       verificationPage = loginPage.validLogin(login, password);
     }
-    @Когда("пользователь переводит 5 000 рублей с карты с номером {string} на свою 1 карту с главной страницы,")
-    public void replenishment(String numberCard) {
-        var Replenish = new DashboardPage().replenishCard0001().transfer(5000, numberCard);
+
+    @Затем("пользователь вводит верный пароль из смс {string} открывается страница с его картами,")
+    public void setValidCode(String code) {
+        dashboardPage = verificationPage.validVerify(code);
     }
-    @Тогда("баланс его 1 карты из списка на главной странице должен стать 15000 рублей.")
-    public void dashboardCheckBalance() {
-        var CheckBalance = new DashboardPage();
-        int actualBalanceCard0001 = CheckBalance.getCardBalance("0001");
-        Assertions.assertEquals(15000, actualBalanceCard0001);
+
+    @И("пользователь переводит {int} рублей с карты с номером {string} на свою 1 карту с главной страницы,")
+    public void replenishment(int amount, String numberCard) {
+        dashboardPage.replenishCard0001().transfer(amount, numberCard);
+    }
+
+
+    @Тогда("баланс его карты c id {string} из списка на главной странице должен стать {int} рублей.")
+    public void dashboardCheckBalance(String id, int amount) {
+        int actualBalanceCard0001 = dashboardPage.getCardBalance(id);
+        Assertions.assertEquals(amount, actualBalanceCard0001);
     }
 }
+
 

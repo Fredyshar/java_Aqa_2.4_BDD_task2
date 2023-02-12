@@ -1,5 +1,6 @@
 package ru.netology.page;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import ru.netology.data.DataHelper;
 
@@ -15,19 +16,20 @@ public class VerificationPage {
         codeField.shouldBe(visible);
     }
 
-    public SelenideElement getErrorMassage() {
-        return errorMassage;
+    public void getErrorMassage(String textError) {
+        errorMassage
+                .shouldHave(Condition.text(textError))
+                .shouldBe(visible);
     }
 
-    public DashboardPage validVerify(DataHelper.VerificationCode verificationCode) {
-        codeField.setValue(verificationCode.getCode());
+    public DashboardPage validVerify(String code) {
+        codeField.setValue(code);
         verifyButton.click();
         return new DashboardPage();
     }
 
-    public DashboardPage invalidVerify(DataHelper.InvalidVerificationCode invalidVerificationCode) {
+    public void invalidVerify(DataHelper.VerificationCode invalidVerificationCode) {
         codeField.setValue(invalidVerificationCode.getCode());
         verifyButton.click();
-        return new DashboardPage();
     }
 }

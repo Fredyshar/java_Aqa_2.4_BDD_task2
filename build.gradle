@@ -15,13 +15,15 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
-    testImplementation 'com.codeborne:selenide:5.19.0'
-    implementation 'io.cucumber:cucumber-java:7.11.0'
-    testImplementation 'io.cucumber:cucumber-junit:7.11.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+    testImplementation 'org.junit.vintage:junit-vintage-engine:5.8.2'
+    testImplementation 'com.codeborne:selenide:6.1.2'
+    implementation 'io.cucumber:cucumber-java:7.1.0'
+    testImplementation 'io.cucumber:cucumber-junit:7.1.0'
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
     testImplementation 'io.rest-assured:rest-assured:4.3.3'
     testImplementation 'com.google.code.gson:gson:2.8.6'
+    testImplementation 'org.slf4j:slf4j-simple:1.7.32'
 }
 
 test {

@@ -1,13 +1,17 @@
 package ru.netology.data;
 
+import com.github.javafaker.Faker;
 import lombok.Value;
 
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Objects;
 
 public class DataHelper {
     private DataHelper() {
     }
+
+    private static Faker faker;
 
     @Value
     public static class AuthInfo {
@@ -19,9 +23,20 @@ public class DataHelper {
         return new AuthInfo("vasya", "qwerty123");
     }
 
-    public static AuthInfo getOtherAuthInfo(AuthInfo original) {
+    public static AuthInfo getOtherAuthInfo() {
         return new AuthInfo("petya", "123qwerty");
     }
+
+    public static AuthInfo getAuthInfoWithOtherLogin() {
+        faker = new Faker(new Locale("en"));
+        return new AuthInfo(faker.name().username(), "123qwerty");
+    }
+
+    public static AuthInfo getAuthInfoWithOtherPassword() {
+        faker = new Faker(new Locale("en"));
+        return new AuthInfo("vasya", faker.internet().password());
+    }
+
 
     @Value
     public static class VerificationCode {
@@ -32,13 +47,9 @@ public class DataHelper {
         return new VerificationCode("12345");
     }
 
-    @Value
-    public static class InvalidVerificationCode {
-        private String code;
-    }
 
-    public static InvalidVerificationCode getCodeFor() {
-        return new InvalidVerificationCode("12348");
+    public static VerificationCode getNotVerificationCodeFor() {
+        return new VerificationCode("12348");
     }
 
     @Value
@@ -54,6 +65,5 @@ public class DataHelper {
             return city.get(0);
         }
     }
-
 
 }
