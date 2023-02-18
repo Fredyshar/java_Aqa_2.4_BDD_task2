@@ -31,16 +31,15 @@ public class TemplateSteps {
         dashboardPage = verificationPage.validVerify(code);
     }
 
-    @И("пользователь переводит {int} рублей с карты с номером {string} на свою 1 карту с главной страницы,")
-    public void replenishment(int amount, String numberCard) {
-        dashboardPage.replenishCard0001().transfer(amount, numberCard);
+    @И("пользователь переводит {int} рублей с карты с номером {string} на свою {int} карту с главной страницы,")
+    public void replenishment(int amount, String numberCard, int id) {
+        dashboardPage.replenish(id).transfer(amount, numberCard);
     }
 
-
-    @Тогда("баланс его карты c id {string} из списка на главной странице должен стать {int} рублей.")
-    public void dashboardCheckBalance(String id, int amount) {
-        int actualBalanceCard0001 = dashboardPage.getCardBalance(id);
-        Assertions.assertEquals(amount, actualBalanceCard0001);
+    @Тогда("баланс его {int} карты из списка на главной странице должен стать {int} рублей.")
+    public void dashboardCheckBalance(int id, int amount) {
+        int actualBalance = dashboardPage.getActualBalance(id);
+        Assertions.assertEquals(amount, actualBalance);
     }
 }
 

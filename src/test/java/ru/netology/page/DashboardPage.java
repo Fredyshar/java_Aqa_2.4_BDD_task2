@@ -32,18 +32,17 @@ public class DashboardPage {
         return Integer.parseInt(value);
     }
 
-    public TransferPage replenishCard0001() {
-        buttonReplenishCard0001.click();
-        return new TransferPage();
-    }
-
-    public TransferPage replenishCard0002() {
-        buttonReplenishCard0002.click();
-        return new TransferPage();
-    }
-
     public DashboardPage dashboardPage() {
         refreshButton.click();
         return new DashboardPage();
+    }
+
+    public TransferPage replenish(int index) {
+        cards.get(index - 1).$("button").click();
+        return new TransferPage();
+    }
+    public int getActualBalance(int index) {
+        val text = cards.get(index - 1).text();
+        return extractBalance(text);
     }
 }
